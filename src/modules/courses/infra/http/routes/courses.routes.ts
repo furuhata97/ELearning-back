@@ -26,4 +26,17 @@ coursesRouter.post(
   coursesController.create,
 );
 
+coursesRouter.put(
+  '/:id',
+  ensureAuthentication,
+  upload.single('course_image'),
+  celebrate({
+    [Segments.BODY]: {
+      name: Joi.string().required(),
+      course_image: Joi.string(),
+    },
+  }),
+  coursesController.update,
+);
+
 export default coursesRouter;

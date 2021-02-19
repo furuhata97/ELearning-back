@@ -1,6 +1,6 @@
 import AppError from '@shared/errors/AppError';
 import { inject, injectable } from 'tsyringe';
-import { uuid } from 'uuidv4';
+import { v4 } from 'uuid';
 import { sign } from 'jsonwebtoken';
 import authConfig from '@config/auth';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
@@ -59,7 +59,7 @@ class CreateSessionService {
       expiresIn,
     });
 
-    const refreshToken = uuid();
+    const refreshToken = v4();
 
     const cacheKey = `refreshToken:${refreshToken}`;
     await this.cacheProvider.save(

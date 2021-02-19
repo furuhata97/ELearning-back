@@ -1,4 +1,4 @@
-import { uuid } from 'uuidv4';
+import { v4 } from 'uuid';
 
 import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
 import IUsersRepository from '../IUsersRepository';
@@ -27,7 +27,7 @@ class FakeUsersRepository implements IUsersRepository {
   }: ICreateUserDTO): Promise<User> {
     const user = new User();
 
-    Object.assign(user, { id: uuid(), name, email, password });
+    Object.assign(user, { id: v4(), name, email, password });
 
     this.users.push(user);
 

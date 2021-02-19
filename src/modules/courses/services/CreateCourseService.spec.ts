@@ -8,7 +8,7 @@ let createCourse: CreateCoursesService;
 let fakeCoursesRepository: FakeCoursesRepository;
 let fakeStorageProvider: FakeStorageProvider;
 
-describe('CreateUser', () => {
+describe('CreateCourse', () => {
   beforeEach(() => {
     fakeCoursesRepository = new FakeCoursesRepository();
     fakeStorageProvider = new FakeStorageProvider();

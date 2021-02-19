@@ -1,4 +1,4 @@
-import { uuid } from 'uuidv4';
+import { v4 } from 'uuid';
 
 import ICreateCourseDTO from '@modules/courses/dtos/ICreateCourseDTO';
 import ICoursesRepository from '../ICoursesRepository';
@@ -17,7 +17,7 @@ class FakeCoursesRepository implements ICoursesRepository {
   public async create({ name, image }: ICreateCourseDTO): Promise<Course> {
     const course = new Course();
 
-    Object.assign(course, { id: uuid(), name, image });
+    Object.assign(course, { id: v4(), name, image });
 
     this.courses.push(course);
 
