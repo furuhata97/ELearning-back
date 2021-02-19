@@ -22,6 +22,9 @@ export default class SessionsController {
       secure: true,
     });
 
+    // response.cookie('token', token);
+    // response.cookie('refreshToken', refreshToken);
+
     return response.json({ user: classToClass(user) });
   }
 

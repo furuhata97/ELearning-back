@@ -8,6 +8,7 @@ import cors from 'cors';
 import csrf from 'csurf';
 import { errors } from 'celebrate';
 
+import uploadConfig from '@config/upload';
 import AppError from '@shared/errors/AppError';
 import routes from './routes';
 import rateLimiter from './middlewares/rateLimiter';
@@ -30,6 +31,7 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 app.use(csrfProtection);
+app.use('/files', express.static(uploadConfig.uploadsFolder));
 app.use(rateLimiter);
 app.use(routes);
 
