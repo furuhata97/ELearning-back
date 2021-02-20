@@ -39,7 +39,7 @@ describe('CreateLesson', () => {
       course_id: course.id,
       duration: 500,
       description: 'Example test for lesson',
-      video_id: '78945612345',
+      video_url: 'youtube.com/watch?v=h3zP-LY2DN0',
     });
 
     expect(lesson).toHaveProperty('id');
@@ -53,7 +53,7 @@ describe('CreateLesson', () => {
         course_id: v4(),
         duration: 100,
         description: 'asdfghjkl',
-        video_id: '78945612345',
+        video_url: 'youtube.com/watch?v=h3zP-LY2DN0',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -65,7 +65,24 @@ describe('CreateLesson', () => {
         course_id: 'fake_course.id',
         duration: 100,
         description: 'asdfghjkl',
-        video_id: '78945612345',
+        video_url: 'youtube.com/watch?v=h3zP-LY2DN0',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('should not be able to create a new lesson with invalid video url', async () => {
+    const course = await createCourse.execute({
+      name: 'Example',
+      course_image: 'example.png',
+    });
+
+    await expect(
+      createLesson.execute({
+        name: 'Example lesson',
+        course_id: course.id,
+        duration: 500,
+        description: 'Example test for lesson',
+        video_url: 'h3zP-LY2DN0',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

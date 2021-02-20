@@ -16,14 +16,14 @@ export default class SessionsController {
       password,
     });
 
-    response.cookie('token', token, { httpOnly: true, secure: true });
-    response.cookie('refreshToken', refreshToken, {
-      httpOnly: true,
-      secure: true,
-    });
+    // response.cookie('token', token, { httpOnly: true, secure: true });
+    // response.cookie('refreshToken', refreshToken, {
+    //   httpOnly: true,
+    //   secure: true,
+    // });
 
-    // response.cookie('token', token);
-    // response.cookie('refreshToken', refreshToken);
+    response.cookie('token', token);
+    response.cookie('refreshToken', refreshToken);
 
     return response.json({ user: classToClass(user) });
   }

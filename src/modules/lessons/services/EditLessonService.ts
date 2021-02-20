@@ -1,13 +1,14 @@
+import { injectable, inject } from 'tsyringe';
 import { validate } from 'uuid';
 
-import ICoursesRepository from '@modules/courses/repositories/ICoursesRepository';
 import AppError from '@shared/errors/AppError';
-import { inject, injectable } from 'tsyringe';
+import ICoursesRepository from '@modules/courses/repositories/ICoursesRepository';
+import ILessonsRepository from '../repositories/ILessonsRepository';
 import Lesson from '../infra/typeorm/entities/Lesson';
-import ILessonRepository from '../repositories/ILessonsRepository';
 import videoUrlParser from '../utils/videoUrlParser';
 
 interface IRequest {
+  id: string;
   name: string;
   duration: number;
   course_id: string;
@@ -16,24 +17,35 @@ interface IRequest {
 }
 
 @injectable()
-class CreateLessonService {
+class EditLessonService {
   constructor(
     @inject('LessonsRepository')
-    private lessonsRepository: ILessonRepository,
+    private lessonsRepository: ILessonsRepository,
 
     @inject('CoursesRepository')
     private coursesRepository: ICoursesRepository,
   ) {}
 
   public async execute({
+    id,
     name,
     duration,
     course_id,
     description,
     video_url,
   }: IRequest): Promise<Lesson> {
-    if (!validate(course_id)) {
+    if (!validate(id)) {
       throw new AppError('Invalid ID format', 422);
+    }
+
+    const lesson = await this.lessonsRepository.findById(id);
+
+    if (!lesson) {
+      throw new AppError('Lesson not found', 404);
+    }
+
+    if (!validate(course_id)) {
+      throw new AppError('Invalid course ID format');
     }
 
     const course = await this.coursesRepository.findById(course_id);
@@ -44,20 +56,18 @@ class CreateLessonService {
 
     const video_id = videoUrlParser(video_url);
 
-    if (video_id.length === 0) {
-      throw new AppError('Invalid video URL', 422);
-    }
+    if (video_id.length === 0) throw new AppError('Invalid video URL', 422);
 
-    const lesson = await this.lessonsRepository.create({
-      name,
-      duration,
-      course_id,
-      description,
-      video_id,
-    });
+    lesson.name = name;
+    lesson.duration = duration;
+    lesson.course_id = course_id;
+    lesson.description = description;
+    lesson.video_id = video_id;
+
+    await this.lessonsRepository.save(lesson);
 
     return lesson;
   }
 }
 
-export default CreateLessonService;
+export default EditLessonService;

@@ -24,17 +24,19 @@ lessonsRouter.post(
   lessonsController.create,
 );
 
-// lessonsRouter.put(
-//   '/:id',
-//   ensureAuthentication,
-//   upload.single('lesson_image'),
-//   celebrate({
-//     [Segments.BODY]: {
-//       name: Joi.string().required(),
-//       lesson_image: Joi.string(),
-//     },
-//   }),
-//   lessonsController.update,
-// );
+lessonsRouter.put(
+  '/:id',
+  ensureAuthentication,
+  celebrate({
+    [Segments.BODY]: {
+      name: Joi.string().required(),
+      duration: Joi.number().required(),
+      course_id: Joi.string().required(),
+      description: Joi.string().required(),
+      video_url: Joi.string().required(),
+    },
+  }),
+  lessonsController.update,
+);
 
 export default lessonsRouter;
