@@ -14,6 +14,12 @@ class FakeCoursesRepository implements ICoursesRepository {
     return foundCourse;
   }
 
+  public async findAll(): Promise<Course[]> {
+    const { courses } = this;
+
+    return courses;
+  }
+
   public async create({ name, image }: ICreateCourseDTO): Promise<Course> {
     const course = new Course();
 

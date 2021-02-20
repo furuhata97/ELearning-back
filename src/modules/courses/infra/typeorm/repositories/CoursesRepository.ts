@@ -31,6 +31,12 @@ class CoursesRepository implements ICoursesRepository {
 
     return course;
   }
+
+  public async findAll(): Promise<Course[]> {
+    const courses = await this.ormCourseRepository.find();
+
+    return courses;
+  }
 }
 
 export default CoursesRepository;

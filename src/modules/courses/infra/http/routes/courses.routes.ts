@@ -39,4 +39,6 @@ coursesRouter.put(
   coursesController.update,
 );
 
+coursesRouter.get('/', coursesController.show);
+
 export default coursesRouter;
