@@ -1,5 +1,6 @@
 import CreateCoursesService from '@modules/courses/services/CreateCourseService';
 import EditCourseService from '@modules/courses/services/EditCourseService';
+import { classToClass } from 'class-transformer';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
@@ -16,7 +17,7 @@ export default class CoursesController {
       course_image,
     });
 
-    return response.json(course);
+    return response.json(classToClass(course));
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
@@ -33,6 +34,6 @@ export default class CoursesController {
       course_image,
     });
 
-    return response.json(course);
+    return response.json(classToClass(course));
   }
 }
