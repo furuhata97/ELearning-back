@@ -14,6 +14,12 @@ class FakeLessonsRepository implements ILessonsRepository {
     return foundLesson;
   }
 
+  public async findByCourseId(id: string): Promise<Lesson[]> {
+    const lessons = this.lessons.filter(lesson => lesson.course_id === id);
+
+    return lessons;
+  }
+
   public async create({
     name,
     duration,

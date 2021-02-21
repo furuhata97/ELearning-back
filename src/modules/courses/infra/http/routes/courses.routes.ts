@@ -6,12 +6,14 @@ import { celebrate, Segments, Joi } from 'celebrate';
 
 import ensureAuthentication from '@modules/users/infra/http/middleware/ensureAuthentication';
 import CoursesController from '../controllers/CoursesController';
+import LessonsFromCourseController from '../controllers/LessonsFromCourseController';
 
 const upload = multer(uploadConfig);
 
 const coursesRouter = Router();
 
 const coursesController = new CoursesController();
+const lessonsFromCourseController = new LessonsFromCourseController();
 
 coursesRouter.post(
   '/',
@@ -40,5 +42,15 @@ coursesRouter.put(
 );
 
 coursesRouter.get('/', coursesController.show);
+
+coursesRouter.get(
+  '/:id/lessons',
+  celebrate({
+    [Segments.HEADERS]: Joi.object({
+      authorization: Joi.string().required(),
+    }).unknown(),
+  }),
+  lessonsFromCourseController.show,
+);
 
 export default coursesRouter;

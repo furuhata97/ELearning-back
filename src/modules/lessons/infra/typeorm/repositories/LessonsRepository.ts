@@ -41,6 +41,14 @@ class LessonsRepository implements ILessonsRepository {
 
     return lesson;
   }
+
+  public async findByCourseId(id: string): Promise<Lesson[]> {
+    const lessons = await this.ormLessonRepository.find({
+      where: { course_id: id },
+    });
+
+    return lessons;
+  }
 }
 
 export default LessonsRepository;
