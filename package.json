@@ -28,8 +28,7 @@
     "reflect-metadata": "^0.1.13",
     "tsyringe": "^4.4.0",
     "typeorm": "^0.2.30",
-    "uuid": "^8.3.2",
-    "uuidv4": "^6.2.6"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
