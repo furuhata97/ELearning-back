@@ -14,10 +14,11 @@ class FakeCoursesRepository implements ICoursesRepository {
     return foundCourse;
   }
 
-  public async findAll(): Promise<Course[]> {
+  public async findAll(): Promise<[Course[], number]> {
     const { courses } = this;
+    const count = this.courses.length;
 
-    return courses;
+    return [courses, count];
   }
 
   public async create({ name, image }: ICreateCourseDTO): Promise<Course> {

@@ -39,7 +39,8 @@ describe('ListCourses', () => {
 
     const courses = await listCourses.execute();
 
-    expect(courses).toHaveLength(3);
-    expect(courses[0].name).toEqual('Example 1');
+    expect(courses[0]).toHaveLength(3);
+    expect(courses[1]).toEqual(3);
+    expect(courses[0][0].name).toEqual('Example 1');
   });
 });

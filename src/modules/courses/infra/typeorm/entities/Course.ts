@@ -4,9 +4,11 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
 
 import { Expose } from 'class-transformer';
+import Lesson from '@modules/lessons/infra/typeorm/entities/Lesson';
 
 @Entity('courses')
 class Course {
@@ -18,6 +20,9 @@ class Course {
 
   @Column()
   image: string;
+
+  @OneToMany(() => Lesson, lesson => lesson.course, { eager: true })
+  lessons: Lesson[];
 
   @CreateDateColumn()
   created_at: Date;

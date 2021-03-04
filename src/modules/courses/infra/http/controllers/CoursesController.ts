@@ -43,6 +43,6 @@ export default class CoursesController {
 
     const courses = await listCourses.execute();
 
-    return response.json(courses);
+    return response.json(classToClass(courses));
   }
 }

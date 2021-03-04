@@ -9,7 +9,7 @@ class ListCoursesService {
     private coursesRepository: ICoursesRepository,
   ) {}
 
-  public async execute(): Promise<Course[]> {
+  public async execute(): Promise<[Course[], number]> {
     const courses = await this.coursesRepository.findAll();
 
     return courses;

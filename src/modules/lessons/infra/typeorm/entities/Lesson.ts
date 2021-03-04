@@ -21,7 +21,7 @@ class Lesson {
   @Column({ type: 'integer' })
   duration: number;
 
-  @ManyToOne(() => Course, { eager: true })
+  @ManyToOne(() => Course)
   @JoinColumn({ name: 'course_id' })
   course: Course;
 
